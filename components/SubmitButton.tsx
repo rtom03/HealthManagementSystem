@@ -5,7 +5,7 @@ import Image from 'next/image'
 interface ButtonProps {
     isLoading: boolean,
     className?: string,
-    children: React.ReactNode
+    children: React.ReactNode,
 }
 
 const SubmitButton = ({ isLoading, className, children }: ButtonProps) => {
@@ -21,6 +21,7 @@ const SubmitButton = ({ isLoading, className, children }: ButtonProps) => {
                             height={24}
                             className='animate-spin'
                         />
+                        Loading...
                     </div>
                 ) : children}
             </Button>

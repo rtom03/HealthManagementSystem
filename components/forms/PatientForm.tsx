@@ -3,13 +3,14 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { Button } from "@/components/ui/button"
 import { Form, } from "@/components/ui/form"
 import CustomForm from "../CustomForm"
 import SubmitButton from "../SubmitButton"
 import { useState } from "react"
 import { UserFormValidation } from "@/lib/validation"
-import { useRouter } from "next/router"
+import { createUser } from "@/lib/actions/patient.actions"
+import { useRouter } from "next/navigation"
+import { parseStringify } from "@/lib/utils"
 
 export enum FormFieldType {
     INPUT = 'input',
@@ -26,8 +27,8 @@ export enum FormFieldType {
 
 
 const PatientForm = () => {
-    const [loading, setLoading] = useState(false)
-    // const router = useRouter()
+    const [isLoading, setIsLoading] = useState(false)
+    const router = useRouter()
     // 1. Define your form.
     const form = useForm<z.infer<typeof UserFormValidation>>({
         resolver: zodResolver(UserFormValidation),
@@ -39,19 +40,18 @@ const PatientForm = () => {
     })
 
     // 2. Define a submit handler.
-    function onSubmit({ name, email, phone }: z.infer<typeof UserFormValidation>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        setLoading(true)
+    async function onSubmit({ name, email, phone }: z.infer<typeof UserFormValidation>) {
+
+        setIsLoading(true)
         try {
-            // const userData = { name, email, phone }
+            const userData = { name, email, phone }
 
-            // const user = await createUser(userData)
+            const user = await createUser(userData)
 
-            // if(user) router.push(`/patients/${user.$id}/register}`)
+            if (user) router.push(`/patients/${user.$id}/register}`)
+            return parseStringify(user)
         } catch (error) {
             console.log(error)
-
         }
     }
 
@@ -87,9 +87,10 @@ const PatientForm = () => {
                     label="Phone Number"
                     placeholder='(978) 689 763'
                 />
-                <SubmitButton isLoading={loading}>Get Stated</SubmitButton>
+                <SubmitButton isLoading={isLoading}>Get Stated</SubmitButton>
             </form>
         </Form>
     )
 }
 export default PatientForm
+
