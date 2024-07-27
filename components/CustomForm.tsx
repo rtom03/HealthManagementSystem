@@ -24,7 +24,7 @@ interface CustomProps {
     label?: string,
     placeholder: string,
     iconSrc?: string,
-    iconAlt?: string,
+    // iconAlt?: string,
     disabled?: boolean,
     dateFormat?: string,
     showTimeSelect?: boolean,
@@ -34,7 +34,7 @@ interface CustomProps {
 
 const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
 
-    const { fieldType, iconSrc, iconAlt, placeholder } = props;
+    const { fieldType, iconSrc, placeholder } = props;
     switch (fieldType) {
         case FormFieldType.INPUT:
             return (
@@ -42,7 +42,7 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
                     {iconSrc && (
                         <Image
                             src={iconSrc}
-                            alt={iconAlt || 'user'}
+                            alt='user'
                             height={24}
                             width={24}
                             className='ml-2'
