@@ -21,11 +21,6 @@ export enum FormFieldType {
     SELECT = 'select',
     SKELETON = 'skeleton'
 }
-
-
-
-
-
 const PatientForm = () => {
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
@@ -75,7 +70,7 @@ const PatientForm = () => {
                     name='name'
                     placeholder='John Doe'
                     iconSrc="/assets/icons/user.svg"
-                    label="Enter your gull name" />
+                    label="Enter your full name" />
 
                 <CustomForm
                     fieldType={FormFieldType.INPUT}
